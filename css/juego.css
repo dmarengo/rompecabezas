@@ -1,11 +1,10 @@
 /*Código armado por La Foca Loca S.A. No modificar*/
 body {
   font-family: Arial, sans-serif;
-  width: 940px;
+  width: 1050px;
   margin: 5% auto;
   min-height: 100%;
   background-image: url(../images/adventure.jpg);
-  background-color: red;
 }
 ul {
   padding-left: 0;
@@ -25,6 +24,13 @@ li::before {
   color: #E84A5F;
 }
 
+.col-40 p {
+  font-style: arial;
+  color: black;
+  text-align: left;
+  padding-left: 5px;
+}
+
 .col-40, .col-60 {
   display: table-cell;
   margin: 0;
@@ -32,20 +38,14 @@ li::before {
 }
 .col-40 {
   background: #FFF;
+  padding: 20px;
   color: #000;
-  height: 900px;
-  width: 900px;
+  width:40%;
 }
 
 .col-60 {
-  background: red;
+  width: 60%;
 }
-.juego {
-  float: left;
-  width: 33%;
-  height: 33%;
-}
-
 
 #flecha{
   font-size: 60px;
@@ -55,9 +55,56 @@ li::before {
   text-align: center;
 }
 
+#juego {
+  width: 600px;
+  height: 600px;
+}
+
 #juego div {
   text-align: center;
   animation: fadein 2s;
+}
+
+.rompecabezas {
+  width: 33.333333333%;
+  height: 33.333333333%;
+  float: left;
+}
+.rompecabezas img {
+  width: 100%;
+  border: 1px solid green;
+}
+
+#titulo h1{
+color: rgb(240, 39, 39);
+font-size: 2rem;  
+text-align: center;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+#instrucciones h2{
+  text-align: center;
+  color: rebeccapurple;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#objetivo h2{
+  color: yellowgreen;
+  text-align: center;
+  margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#objetivo img{
+  width: 60%;
+  height: 60%;
+}
+
+#ultimo-mov h2{
+  font-size: 35%;
+  color: greenyellow
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top:12px;
 }
 
 @keyframes fadein {

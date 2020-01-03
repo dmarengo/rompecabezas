@@ -1,5 +1,6 @@
 // Arreglo que contiene las intrucciones del juego 
-var instrucciones = [];
+var instrucciones = ["Utiliza las flechas para mover las piezas", "Para finalizar deberas jugar hasta armar el rompecabezas"];
+
 // Arreglo para ir guardando los movimientos que se vayan realizando
 var movimientos = [];
 
@@ -21,21 +22,47 @@ Cada elemento de este arreglo deberá ser mostrado en la lista con id 'lista-ins
 Para eso deberás usar la función ya implementada mostrarInstruccionEnLista().
 Podés ver su implementación en la ultima parte de este codigo. */
 function mostrarInstrucciones(instrucciones) {
-    //COMPLETAR
+  for(i = 0; i<instrucciones.length; i++){
+    mostrarInstruccionEnLista(instrucciones[i], "lista-instrucciones");
+  }
 }
 
 /* COMPLETAR: Crear función que agregue la última dirección al arreglo de movimientos
 y utilice actualizarUltimoMovimiento para mostrarlo en pantalla */
 
+function ultimaDireccion (direccion){
+  movimientos.push(direccion);
+  actualizarUltimoMovimiento(direccion);
+}
+
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
+
 function chequearSiGano() {
-    //COMPLETAR
+  var grillaOrdenada = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ];
+  var correctas = 0;
+  for(var i = 0; i < grilla.length; i++ ){
+    var filaActual = grilla[i];
+    for(var j= 0; j < filaActual.length; j++){
+      var celdaActual = filaActual[j];
+      if (celdaActual == grillaOrdenada[i][j]){
+        correctas += 1;
+      } 
+    }
+  }
+  if(correctas === 9){
+    mostrarCartelGanador();
+  }
 }
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
+
 function mostrarCartelGanador() {
-    //COMPLETAR
+    alert("Felicitaciones, has podido completar el Rompecabezas!!!");
 }
 
 /* Función que intercambia dos posiciones en la grilla.
@@ -48,60 +75,69 @@ arreglo[0][0] = arreglo[1][2];
 En vez de intercambiar esos valores vamos a terminar teniendo en ambas posiciones el mismo valor.
 Se te ocurre cómo solucionar esto con una variable temporal?
 */
+
 function intercambiarPosicionesGrilla(filaPos1, columnaPos1, filaPos2, columnaPos2) {
-    //COMPLETAR
+  var aux = grilla[filaPos1][columnaPos1];
+  grilla[filaPos1][columnaPos1] = grilla[filaPos2][columnaPos2];
+  grilla[filaPos2][columnaPos2] = aux;
 }
 
 // Actualiza la posición de la pieza vacía
 function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
-    //COMPLETAR
+  filaVacia = nuevaFila;
+  columnaVacia = nuevaColumna;
 }
 
 
 // Para chequear si la posicón está dentro de la grilla.
 function posicionValida(fila, columna) {
-    //COMPLETAR
+  if ((fila <=2 && fila >=0) && (columna <= 2 && columna >= 0) ){
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento.
 Las direcciones están dadas por números que representa: arriba (38), abajo (40), izquierda (37), derecha (39) */
+
 function moverEnDireccion(direccion) {
   var nuevaFilaPiezaVacia;
   var nuevaColumnaPiezaVacia;
 
-  // Mueve pieza hacia la abajo, reemplazandola con la blanca
+  // Mueve la pieza hacia abajo, reemplazandola con la vacia
   if (direccion === codigosDireccion.ABAJO) {
-    nuevaFilaPiezaVacia = filaVacia - 1;
-    nuevaColumnaPiezaVacia = columnaVacia;
-  }
-    
-  // Mueve pieza hacia arriba, reemplazandola con la blanca
-  else if (direccion === codigosDireccion.ARRIBA) {
     nuevaFilaPiezaVacia = filaVacia + 1;
     nuevaColumnaPiezaVacia = columnaVacia;
   }
     
-  // Mueve pieza hacia la derecha, reemplazandola con la blanca
-  else if (direccion === codigosDireccion.DERECHA) {
-    //COMPLETAR
+  // Mueve la pieza hacia arriba, reemplazandola con la vacia
+  else if (direccion === codigosDireccion.ARRIBA) {
+    nuevaFilaPiezaVacia = filaVacia - 1;
+    nuevaColumnaPiezaVacia = columnaVacia;
   }
     
-  // Mueve pieza hacia la izquierda, reemplazandola con la blanca
+  // Mueve la pieza hacia la derecha, reemplazandola con la vacia
+  else if (direccion === codigosDireccion.DERECHA) {
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia + 1;
+  }
+
+  // Mueve la pieza hacia la izquierda, reemplazandola con la vacia
   else if (direccion === codigosDireccion.IZQUIERDA) {
-    // COMPLETAR
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia - 1;
   }
 
   /* A continuación se chequea si la nueva posición es válida, si lo es, se intercambia. 
   Para que esta parte del código funcione correctamente deberás haber implementado 
   las funciones posicionValida, intercambiarPosicionesGrilla y actualizarPosicionVacia */
 
-    if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
-        intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-        actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-
-  //COMPLETAR: Agregar la dirección del movimiento al arreglo de movimientos
-
-    }
+  if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
+    intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+    actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+    ultimaDireccion(direccion);
+  }
 }
 
 
